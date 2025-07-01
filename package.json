@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.1",
+    "@prisma/client": "^6.10.1",
     "daisyui": "^5.0.43",
+    "generate": "^0.14.0",
     "next": "15.3.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
