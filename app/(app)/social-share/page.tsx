@@ -1,6 +1,9 @@
+
+
+
 import React from 'react'
 
-const page = () => {
+function SocialShare() {
   return (
     <div>
       <h1>Social Share</h1>
@@ -8,4 +11,4 @@ const page = () => {
   )
 }
 
-export default page
+export default SocialShare
