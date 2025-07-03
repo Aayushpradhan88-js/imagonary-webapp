@@ -47,6 +47,7 @@ function SocialShare() {
     }
   }, [selectedFormat, uploadedImage]);
 
+  //----------File Upload----------//
   const handledFileFormat = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
