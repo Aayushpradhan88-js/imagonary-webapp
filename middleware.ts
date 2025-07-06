@@ -6,7 +6,7 @@ const isPublicRoutes = createRouteMatcher([
   "/sign-in",
   "/sign-up",
   "/",
-  "/home"
+  "/home",
 ])
 
 //---------Public API Routes----------//
@@ -15,7 +15,7 @@ const isPublicApiRoutes = createRouteMatcher([
 ])
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth();
+  const {userId} = await auth();
   const currentUrl = new URL(req.url);
   const isAccessingDashboard = currentUrl.pathname === '/home';
   const isApiRequest = currentUrl.pathname.startsWith('/api');
@@ -29,17 +29,20 @@ export default clerkMiddleware(async (auth, req) => {
     return NextResponse.redirect(new URL("/home", req.url));
   };
 
-  //-----Not logged in-----//
+  //-----R-2 Not logged in-----//
   if (!userId) {
     if (!isPublicApiRoutes(req) && !isPublicRoutes(req)) {
-      return NextResponse.redirect(new URL("sign-in", req.url));
+      return NextResponse.redirect(new URL("/sign-in", req.url));
+    };
+    
+    if (isApiRequest && !isPublicApiRoutes(req)) {
+      return NextResponse.redirect(new URL("/sign-in", req.url));
     };
   };
 
-  if (isApiRequest && !isPublicApiRoutes(req)) {
-    return NextResponse.redirect(new URL("/sign-in", req.url));
-  };
-})
+  return NextResponse.next();
+}
+)
 
 export const config = {
   matcher: [
@@ -48,4 +51,4 @@ export const config = {
     // Always run for API routes
     '/(api|trpc)(.*)',
   ],
-}
+};

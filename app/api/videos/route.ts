@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client'; 
 
 const prisma = new PrismaClient();
+
 export async function GET() {
     try {
         const videos = await prisma.video.findMany({
@@ -11,11 +12,13 @@ export async function GET() {
         })
         return NextResponse.json(videos)
     }
+
    catch(error){
     console.error("Failed to fetch videos: ", error)
     return NextResponse.json({error: "Failed to fetch error"}, {status: 500});
    }
-    // finally {
-    //     await prisma.$disconnect();
-    // }
-}
+
+    finally {
+        await prisma.$disconnect();
+    };
+};

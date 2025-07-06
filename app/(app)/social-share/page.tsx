@@ -1,9 +1,9 @@
 "use client"
 
-
+import { useState, useEffect, useRef } from 'react'
 import { CldImage } from 'next-cloudinary';
-import React, { useState, useEffect, useRef } from 'react'
 
+//----------SOCIAL MEDIA ASPECT RATIO FORMATS----------//
 const socialFormats = {
   "Instagram Square (1:1)": {
     width: 1080,
@@ -190,4 +190,4 @@ function SocialShare() {
   )
 }
 
-export {SocialShare};
+export default SocialShare;

@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Configuration
+//----------CLOUDINARY CONFIGURATION----------//
 cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -14,15 +14,13 @@ cloudinary.config({
 
 interface CloudinaryUploadResult {
     public_id: string;
-    bytes: number | undefined;
-    duration?: number | undefined; 
-    [key: string]: String | undefined;
+    bytes: number;
+    duration?: number;
+    [key: string]: string | number | boolean | object | undefined;
 }
 
 export async function POST(request: NextRequest) {
-
-    const { userId } = auth();
-
+    const { userId } = await auth();
     if (!userId) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -75,7 +73,7 @@ export async function POST(request: NextRequest) {
                 description: description,
                 publicId: result.public_id,
                 originalSize: originalSize,
-                compressedSize: String(result.bytes),
+                compressSize: String(result.bytes),
                 duration: result.duration || 0
             }
         });

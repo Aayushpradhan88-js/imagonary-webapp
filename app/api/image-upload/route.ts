@@ -2,21 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { auth } from '@clerk/nextjs/server';
 
-
-// Configuration
+//----------CLOUDINARY CONFIGURATION----------//
 cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+//----------INTERFACE FOR CLOUDINAY UPLOAD RESULT----------//
 interface CloudinaryUploadResult {
     public_id: string;
-    [key: string]: any;
+    [key: string]: string | number | boolean | object | undefined;
 }
 
 export async function POST(request: NextRequest) {
-    const { userId } = auth();
+    const { userId } = await auth();
 
     if (!userId) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
                 )
                 uploadStream.end(buffer);
             }
-        )
+        );
         return NextResponse.json({ publicId: result.public_id }, { status: 200 });
     }
 
@@ -52,5 +52,5 @@ export async function POST(request: NextRequest) {
         console.error('Error uploading image:', error);
         return NextResponse.json({ error: 'Image upload failed' }, { status: 500 });
 
-    }
-}
+    };
+};

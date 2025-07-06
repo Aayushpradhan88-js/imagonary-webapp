@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+'use client'
+
+import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify';
 
-const page = () => {
+//--------------------VIDEO UPLOAD PAGE--------------------//
+function VideoUpload(){
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -33,10 +36,12 @@ const page = () => {
     formData.append("originalSize", file.size.toString());
 
     try {
+      //----------UPLOAD VIDEO FETCHING AT BACKEND----------//
       const response = await axios.post("/api/video-upload", formData);
 
       if (response.status === 200) {
         toast.success("Video uploaded successfully");
+        router.push("/");
       }
     }
     catch (error) {
@@ -99,4 +104,4 @@ const page = () => {
   )
 }
 
-export default page
+export default VideoUpload
