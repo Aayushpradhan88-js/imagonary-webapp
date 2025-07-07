@@ -1,7 +1,7 @@
 // are assumed to be handled by a root layout.tsx or globals.css file.
 
 const Page = () => {
-  return (<>
+  return ( <>
       <style>
           {`
           /* Custom scrollbar for better aesthetics */
