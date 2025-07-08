@@ -8,8 +8,8 @@ const prisma = new PrismaClient();
 //----------CLOUDINARY CONFIGURATION----------//
 cloudinary.config({
     cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-    api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
 });
 
 interface CloudinaryUploadResult {
@@ -20,12 +20,12 @@ interface CloudinaryUploadResult {
 }
 
 export async function POST(request: NextRequest) {
-    const { userId } = await auth();
-    if (!userId) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
 
     try {
+        const { userId } = await auth();
+        if (!userId) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
         if (
             !process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
             !process.env.CLOUDINARY_API_KEY ||
@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
                 const uploadStream = cloudinary.uploader.upload_stream(
                     {
                         resource_type: 'video',
+                        timeout: 120000,
                         folder: "video-uploads",
                         transformation: {
                             quality: 'auto',
@@ -78,7 +79,7 @@ export async function POST(request: NextRequest) {
             }
         });
 
-        return NextResponse.json({ video }, { status: 201 });
+        return NextResponse.json(video);
     }
 
     catch (error) {
