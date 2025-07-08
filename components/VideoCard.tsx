@@ -164,7 +164,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
           `}
             </style>
 
-            <div className="flex h-screen"
+            <div className="flex"
 
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -247,15 +247,9 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                                 )}
 
                                 <div>
-                                    <Clock size={16} className="mr-1" />
+                                    <Clock size={16} className="mr-2" />
                                     {formatDuration(video.duration)}
                                 </div>
-                                {/* //---testing----// */}
-                                {/* <div className="relative w-full h-32 bg-gray-700 rounded-lg mb-4 flex items-center justify-center"> */}
-                                    {/* Blank thumbnail area */}
-                                    {/* <i className="fas fa-file-code text-5xl text-gray-400"></i> Example icon for file type */}
-                                    {/* <i className="fas fa-ellipsis-h text-gray-500 cursor-pointer hover:text-gray-300 transition-colors duration-200 absolute top-3 right-3"></i> */}
-                                {/* </div> */}
 
                                 {/* //----title design----// */}
                                 <div className="mb-4">
@@ -268,13 +262,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                                 </div>
 
                                 {/* //-----UPLOADED DATA-----// */}
-                                <p className="text-xs text-gray-500 mb-2">
+                                <p className="text-xs text-gray-500 mb-2 flex item-center">
                                     <Clock size={16} className="mr-1" />
                                     Uploaded {dayjs(video.createdAt).fromNow()}
                                 </p>
 
-                                <div className="flex justify-between items-center text-sm mb-4">
-                                    <FileUp size={18} className='mr-2 text-primary' />
+                                <div className="flex justify-between items-center text-sm">
+                                    <FileUp size={18} className='text-primary' />
                                     <div>
                                         <p className="text-gray-400">Original</p>
                                         <p className="text-gray-200">
@@ -282,7 +276,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                                         </p>
                                     </div>
                                     <i className="fas fa-exchange-alt text-gray-500 text-lg"></i>
-                                    <FileDown size={18} className="mr-2 text-secondary" />
+                                    <FileDown size={18} className=" text-secondary" />
                                     <div>
                                         <p className="text-gray-400">Compressed</p>
                                         <p className="text-gray-200">

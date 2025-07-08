@@ -54,10 +54,12 @@ export async function POST(request: NextRequest) {
                         resource_type: 'video',
                         timeout: 120000,
                         folder: "video-uploads",
-                        transformation: {
-                            quality: 'auto',
-                            fetch_format: 'mp4',
-                        }
+                        // transformation: {
+                        //     quality: 'auto',
+                        //     fetch_format: 'mp4',
+                        // }
+                        format: 'mp4',
+                        quality: 'auto'
                     },
 
                     (error, result) => {
