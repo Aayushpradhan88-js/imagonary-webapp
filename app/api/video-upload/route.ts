@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
         const title = formData.get('title') as string;
         const description = formData.get('description') as string;
         const originalSize = formData.get('originalSize') as string;
+        // const parsedOriginalSize = originalSizeStr ? Number(originalSizeStr) : 0;
 
         if (!file) {
             return NextResponse.json({ error: 'No file provided' }, { status: 400 });
@@ -54,12 +55,12 @@ export async function POST(request: NextRequest) {
                         resource_type: 'video',
                         timeout: 120000,
                         folder: "video-uploads",
-                        // transformation: {
-                        //     quality: 'auto',
-                        //     fetch_format: 'mp4',
-                        // }
-                        format: 'mp4',
-                        quality: 'auto'
+                        transformation: {
+                            quality: 'auto',
+                            fetch_format: 'mp4',
+                        }
+                        // format: 'mp4',
+                        // quality: 'auto'
                     },
 
                     (error, result) => {

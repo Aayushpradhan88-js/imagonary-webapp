@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify';
 
+
 //--------------------VIDEO UPLOAD PAGE--------------------//
-function VideoUpload(){
+function VideoUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -54,58 +55,56 @@ function VideoUpload(){
   }
 
   return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 via-blue-300 to-blue-200">
-        <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl bg-white/90 border border-blue-200">
-          <h1 className="text-3xl font-extrabold text-blue-900 mb-6 text-center drop-shadow">Upload Video</h1>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="label mb-1">
-                <span className="label-text text-blue-800 font-semibold">Title</span>
-              </label>
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="input input-bordered w-full rounded-lg border-2  text-black"
-                required
-              />
-            </div>
-            <div>
-              <label className="label mb-1">
-                <span className="label-text text-blue-800 font-semibold">Description</span>
-              </label>
-              <textarea
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                className="textarea text-black textarea-bordered border-2 w-full rounded-lg focus:ring-2 focus:ring-blue-400"
-                required
-              />
-            </div>
-            <div>
-              <label className="label mb-1">
-                <span className="label-text text-blue-800 font-semibold">Video File</span>
-              </label>
-              <input
-                type="file"
-                accept="video/*"
-                onChange={(e) => setFile(e.target.files?.[0] || null)}
-                className="file-input file-input-bordered border-2 w-full  bg-black rounded-lg"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="btn w-full rounded-lg bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 transition-all duration-200 shadow-lg"
-              disabled={isUploading}
-            >
-              {isUploading ? "Uploading..." : "Upload Video"}
-            </button>
-          </form>
-        </div>
+    <div className="flex bg-gradient-to-br">
+      <div className="w-full max-w-md p-8 rounded-2xl shadow-2xl bg-white/90 border border-blue-200">
+        <h1 className="text-3xl font-extrabold text-blue-900 mb-6 text-center drop-shadow">Upload Video</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="label mb-3">
+              <span className="label-text text-blue-800 font-semibold">Title</span>
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="input mt-2 p-2 input-bordered w-full rounded-lg border-2  text-black"
+              required
+            />
+          </div>
+          <div>
+            <label className="label mb-1">
+              <span className="label-text mt-2 text-blue-800 font-semibold">Description</span>
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="textarea p-2 text-black textarea-bordered border-2 w-full rounded-lg"
+              required
+            />
+          </div>
+          <div>
+            <label className="label mb-1">
+              <span className="label-text text-blue-800 font-semibold">Video File</span>
+            </label>
+            <input
+              type="file"
+              accept="video/*"
+              onChange={(e) => setFile(e.target.files?.[0] || null)}
+              className="file-input file-input-bordered border-2 w-full  bg-black rounded-lg"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn w-full rounded-lg bg-blue-900 hover:bg-blue-800 text-white font-bold py-2 transition-all duration-200 shadow-lg"
+            disabled={isUploading}
+          >
+            {isUploading ? "Uploading..." : "Upload Video"}
+          </button>
+        </form>
       </div>
-    // ...existing code...
+    </div>
   )
-  
 }
 
 export default VideoUpload

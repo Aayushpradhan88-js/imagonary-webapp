@@ -13,6 +13,9 @@ function Home() {
 
     const fetchVideos = useCallback(async () => {
         try {
+            setLoading(true)
+            setError(null)
+            
             const response = await axios.get("/api/videos");
             if (Array.isArray(response.data)) {
                 setVideos(response.data);
@@ -48,7 +51,7 @@ function Home() {
 
     if (loading) {
         return (
-            <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
+           <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
                 <div className="animate-spin rounded-full h-12 w-12 border-4 border-solid border-green-500 border-t-transparent"></div>
                 <span className="ml-4 text-xl font-semibold">Loading...</span>
             </div>
@@ -63,7 +66,7 @@ function Home() {
                    deiro
                 </div>) :
                 (
-                    <div className="">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
                         {
                             videos.map((video) => (
                                 <VideoCard
@@ -76,7 +79,6 @@ function Home() {
                     </div>
                 )
             }
-
         </div>
     );
 };
