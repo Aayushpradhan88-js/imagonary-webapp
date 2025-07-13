@@ -13,15 +13,10 @@ import {
   LogOutIcon,
   HelpCircleIcon,
   SettingsIcon,
-  // MoonIcon, // No longer needed here, ThemeSwitcher handles icons
-  // SunIcon,  // No longer needed here, ThemeSwitcher handles icons
 } from "lucide-react";
 
-// Import your ThemeProvider wrapper
 import {Provider} from '../providers';
-
-// Import your ThemeSwitcher component
-import ThemeSwitcher from '@/components/ThemeSwitch'; // Adjust path if needed
+import ThemeSwitcher from '@/components/ThemeSwitch'; 
 
 //--------SIDEBAR LINKS---------//
 const sidebarItems = [
@@ -31,15 +26,12 @@ const sidebarItems = [
 ];
 
 
-export default function RootLayout({ // Renamed from AppLayout for clarity as it's the root layout
+export default function RootLayout({ 
   children
 }: Readonly<{ children: React.ReactNode }>) {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [settingsPopupOpen, setSettingsPopupOpen] = useState(false);
-
-  // Removed 'theme' state and related useEffects/toggleTheme function.
-  // next-themes will manage the theme for us.
 
   const settingsButtonRef = useRef<HTMLLIElement>(null);
   const settingPopupRef = useRef<HTMLDivElement>(null);
@@ -78,15 +70,8 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
   }
 
   return (
-    // The `<html>` tag is here because this is the root layout.
-    // `suppressHydrationWarning` is critical here for next-themes.
-    // The `bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100` classes
-    // will be applied to the `body` or a top-level div *within* the Providers.
-    // next-themes will add/remove 'dark' class on the <html> element.
     <html lang="en" suppressHydrationWarning>
       <body>
-        {/* Wrap your entire application with the Providers component */}
-        {/* Providers is a client component that wraps your app with NextThemesProvider */}
         <Provider>
           <div className="flex h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
             <aside className="hidden lg:flex flex-col bg-gray-200 dark:bg-gray-800 w-64 h-full border-r border-gray-300 dark:border-gray-700 p-4">
@@ -115,7 +100,7 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                 ))}
 
                 <li className="mb-2">
-                  {/* Empty li, can be removed if not needed */}
+                
                 </li>
               </ul>
 
@@ -133,7 +118,6 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                   <span>Settings</span>
                 </button>
 
-                {/* Settings Pop-up Menu with Theme Toggle */}
                 {settingsPopupOpen && (
                   <div
                     ref={settingPopupRef}
@@ -148,7 +132,7 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                 )}
               </li>
 
-              {/* //-----LOGOUT-----// */}
+                {/* //-----SIGN OUT-----// */}
               {user && (
                 <div className="p-4 mt-auto">
                   <button
@@ -160,7 +144,6 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                   </button>
                 </div>
               )}
-
             </aside>
 
             <div className="flex flex-col flex-grow overflow-hidden">
@@ -175,6 +158,8 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                       <MenuIcon className="text-gray-800 dark:text-gray-200" />
                     </label>
                   </div>
+
+                  {/* //-----LOGO-----// */}
                   <div className="flex-1">
                     <Link href="/" onClick={handleLogoClick}>
                       <div className="text-2xl font-bold tracking-tight cursor-pointer text-gray-800 dark:text-gray-100 ml-4 lg:ml-0">
@@ -182,6 +167,8 @@ export default function RootLayout({ // Renamed from AppLayout for clarity as it
                       </div>
                     </Link>
                   </div>
+
+                  {/* //-----USER INFO-----// */}
                   <div className="flex items-center space-x-4">
                     {user && (
                       <>
