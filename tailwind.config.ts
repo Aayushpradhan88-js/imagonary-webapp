@@ -2,6 +2,7 @@ import type {Config} from 'tailwindcss';
 // import daisyui from 'daisyui';
 
 const config: Config = {
+    darkMode: 'class',
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
         './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -19,7 +20,7 @@ const config: Config = {
     // plugins: [require("daisyui")],
     // // @ts-expect-error: daisyui is not in the Tailwind Config type
     // daisyui: {
-    //     themes: ["dark"]
+        // themes: ["dark"]
     // }
 }
 

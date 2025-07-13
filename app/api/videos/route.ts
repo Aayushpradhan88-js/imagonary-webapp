@@ -21,7 +21,7 @@ export async function GET() {
             updatedAt: video.updatedAt instanceof Date ? video.updatedAt.toISOString() : video.updatedAt,
         }));
 
-
+        
         return NextResponse.json(formattedVideos)
     }
 
