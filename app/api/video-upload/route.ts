@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { auth } from '@clerk/nextjs/server';
 import { PrismaClient } from '@prisma/client';
+import { error } from 'console';
 
 const prisma = new PrismaClient();
 
@@ -17,10 +18,35 @@ interface CloudinaryUploadResult {
     bytes: number;
     duration?: number;
     [key: string]: string | number | boolean | object | undefined;
-}
+};
+
+export async function DELETE(
+    request: NextRequest,
+    {params} : {params : {id: string}}
+) {
+    try{
+        const {userId} = await auth();
+        if(!userId) {
+            return NextResponse
+        };
+
+        const videoId = params.id;
+
+        if(!videoId) {
+            return NextResponse.json(
+                {error: 'Video ID is required'},
+                {status: 400}
+            )
+        };
+
+        const videoToDelete = await
+    }
+    catch(error) {
+
+    }
+};
 
 export async function POST(request: NextRequest) {
-
     try {
         const { userId } = await auth();
         if (!userId) {
@@ -59,10 +85,7 @@ export async function POST(request: NextRequest) {
                             quality: 'auto',
                             fetch_format: 'mp4',
                         }
-                        // format: 'mp4',
-                        // quality: 'auto'
                     },
-
                     (error, result) => {
                         if (error) reject(error);
                         else resolve(result as CloudinaryUploadResult);

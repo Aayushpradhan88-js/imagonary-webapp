@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import VideoCard from '@/components/VideoCard';
 import { Video } from '@/types';
+import { toast } from 'react-toastify';
 
 function Home() {
     const [videos, setVideos] = useState<Video[]>([]);
@@ -49,7 +50,36 @@ function Home() {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-    }, [])
+    }, []);
+
+    //------DELETE HANDLER-----//
+    const handleDeleteVideo = useCallback(async(videoId: string) => {
+        if(!confirm('Are you sure you want to delete this video?')){
+            return; //canclled
+        }
+
+        try{
+            //-----DELETE REQUEST TO API ROUTE-----//
+            const response = await axios.delete(`/api/video-upload/${videoId}`)
+
+            if(response.status === 200) {
+                toast.success('Video delted successfully');
+                setVideos(prevVideos => prevVideos.filter(video => video.id !== videoId));
+            }
+            else{
+                toast.error('Failed to delete video');
+            };
+        }
+        catch(error) {
+            console.error('Error deleting video:', error);
+            if(axios.isAxiosError(error) && error.response) {
+                toast.error(error.response.data.error || 'Failed to delete video');
+            } 
+            else {
+                toast.error('An unexpected error occurred while deleting the video.');
+            }
+        }
+    },[]);
 
     //-----LOADING ANIMATION-----//
     if (loading) {
