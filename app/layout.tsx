@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { ClerkProvider } from '@clerk/nextjs';
 import { Provider } from "./providers";
@@ -33,6 +35,16 @@ export default function RootLayout(
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
             {children}
+            <ToastContainer 
+            position="bottom-right" 
+            theme="colored" 
+            autoClose={1000}
+            closeOnClick
+            pauseOnHover
+            transition={Slide}
+            hideProgressBar
+            draggable
+            />
           </body>
         </html>
       </Provider>

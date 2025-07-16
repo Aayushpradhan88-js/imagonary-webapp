@@ -15,7 +15,7 @@ interface VideoCardProps {
     onDelete: (videoId: string) => void;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [previewError, setPreviewError] = useState(false);
 
@@ -33,6 +33,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
         })
     }, []);
 
+    //----VIDEO URL-----//
     const getFullVideoUrl = useCallback((publicId: string) => {
         return getCldVideoUrl({
             src: publicId,
@@ -41,6 +42,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
         })
     }, []);
 
+    //-----VIEEO PREVIEW URL-----//
     const getPreviewVideoUrl = useCallback((publicId: string) => {
         return getCldVideoUrl({
             src: publicId,
@@ -48,8 +50,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
             height: 225,
             rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]
         })
-    }, [])
+    }, []);
 
+    const handlePreviewError = () => {
+        setPreviewError(true);
+    };
+
+    //-----FORMAT SIZE-----//
     const formatSize = useCallback((size: number | string | null | undefined) => {
         const numSize = Number(size);
         if (typeof numSize === 'number' && !isNaN(numSize) && numSize > 0) {
@@ -80,10 +87,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
     useEffect(() => {
         setPreviewError(false);
     }, [isHovered]);
-
-    const handlePreviewError = () => {
-        setPreviewError(true);
-    };
 
     return (
         <>
@@ -141,6 +144,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                     </p>
 
                     <div className="grid grid-cols-2 gap-4 text-sm">
+                        {/* //------ORIGINAL FILE SIZE-----// */}
                         <div className="flex items-center">
                             <FileUp size={18} className="mr-2 text-blue-400" />
                             <div>
@@ -153,6 +157,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                             </div>
                         </div>
 
+                        {/* //------COMPRESSED FILE SIZE-----// */}
                         <div className="flex items-center">
                             <FileDown size={18} className="mr-2 text-green-400" />
                             <div>
@@ -166,6 +171,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                         </div>
                     </div>
 
+                    {/* //------COMPRESSION FILE SIZE PERCENTAGE-----// */}
                     <div className="flex justify-between items-center mt-4">
                         <div className="text-sm font-semibold">
                             Compression:{" "}
@@ -176,24 +182,31 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload }) => {
                             }%</span>
                         </div>
                     </div>
+                    <div className="flex justify-between items-center mt-4">
+                        {/* ... (compression percentage) */}
+                        <div className="flex items-center gap-2">
+                            {/* //------DOWNLOAD BUTTON-----// */}
+                            <button
+                                className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-none p-2 rounded-md"
+                                onClick={() =>
+                                    onDownload(getFullVideoUrl(video.publicId), video.title)
+                                }
+                                title="Download Video"
+                            >
+                                <Download size={16} /> {/* Added the "Download" text here */}
+                            </button>
 
-                    <div className="flex items-center gap-2"> {/* Added a div for buttons */}
-                        <button
-                            className="btn btn-sm bg-blue-600 hover:bg-blue-700 text-white border-none p-2 rounded-md" // Added padding and rounded corners
-                            onClick={() =>
-                                onDownload(getFullVideoUrl(video.publicId), video.title)
-                            }
-                            title="Download Video"
-                        >
-                            <Download size={16} />
-                        </button>
-                        <button
-                            className="btn btn-sm bg-red-600 hover:bg-red-700 text-white border-none p-2 rounded-md" // Delete button style
-                            onClick={() => onDelete(video.id)} // Call onDelete with video.id
-                            title="Delete Video"
-                        >
-                            <Trash2 size={16} />
-                        </button>
+                            {/* //-----DELETE BUTTON-----// */}
+                            <button
+                                className="btn btn-sm cursor-pointer bg-red-600 hover:bg-red-700 text-white border-none p-2 rounded-md" // Delete button style
+                                onClick={() =>
+                                    onDelete(video.id)
+                                }
+                                title="Delete Video"
+                            >
+                                <Trash2 size={16} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

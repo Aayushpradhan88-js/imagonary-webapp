@@ -9,14 +9,15 @@ import {
   LayoutDashboardIcon,
   UploadIcon,
   ImageIcon,
+  // Code,
   Share2Icon,
   LogOutIcon,
   HelpCircleIcon,
   SettingsIcon,
 } from "lucide-react";
 
-import {Provider} from '../providers';
-import ThemeSwitcher from '@/components/ThemeSwitch'; 
+import { Provider } from '../providers';
+import ThemeSwitcher from '@/components/ThemeSwitch';
 
 //--------SIDEBAR LINKS---------//
 const sidebarItems = [
@@ -26,7 +27,7 @@ const sidebarItems = [
 ];
 
 
-export default function RootLayout({ 
+export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
 
@@ -56,7 +57,7 @@ export default function RootLayout({
       if (settingPopupRef.current && !settingPopupRef.current.contains(event.target as Node)
         && settingsButtonRef.current && !settingsButtonRef.current.contains(event.target as Node)) {
         setSettingsPopupOpen(false);
-      }
+      };
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -66,7 +67,7 @@ export default function RootLayout({
 
   //-----FUNCTION TO toggleSETTINGS POP-UP VISIBILITY-----//
   const toggleSettingsPopup = () => {
-    setSettingsPopupOpen(!settingsPopupOpen);
+    setSettingsPopupOpen(!settingsPopupOpen)
   }
 
   return (
@@ -100,7 +101,7 @@ export default function RootLayout({
                 ))}
 
                 <li className="mb-2">
-                
+
                 </li>
               </ul>
 
@@ -109,7 +110,7 @@ export default function RootLayout({
                 <button
                   onClick={toggleSettingsPopup}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-lg font-medium w-full text-left
-                                ${settingsPopupOpen
+                     ${settingsPopupOpen
                       ? "bg-blue-600 text-white"
                       : "hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300"
                     }`}
@@ -132,7 +133,7 @@ export default function RootLayout({
                 )}
               </li>
 
-                {/* //-----SIGN OUT-----// */}
+              {/* //-----SIGN OUT-----// */}
               {user && (
                 <div className="p-4 mt-auto">
                   <button
@@ -142,6 +143,7 @@ export default function RootLayout({
                     <LogOutIcon className="mr-2 h-5 w-5" />
                     Sign Out
                   </button>
+                  
                 </div>
               )}
             </aside>
@@ -172,7 +174,7 @@ export default function RootLayout({
                   <div className="flex items-center space-x-4">
                     {user && (
                       <>
-                        <div className="avatar">
+                        <div className="rounded-lg avatar">
                           <div className="w-8 h-8 rounded-full">
                             <img
                               src={user.imageUrl}
@@ -180,7 +182,7 @@ export default function RootLayout({
                             />
                           </div>
                         </div>
-                        <span className="text-sm truncate max-w-xs lg:max-w-md text-gray-800 dark:text-gray-200">
+                        <span className="text-sm truncate max-w-xs  lg:max-w-md text-gray-800 dark:text-gray-200">
                           {user.username || user.emailAddresses[0].emailAddress}
                         </span>
                       </>
@@ -240,7 +242,7 @@ export default function RootLayout({
                       </div>
                       {/* Directly include ThemeSwitcher for mobile if no popup */}
                       <div className="ml-8 mt-2">
-                         <ThemeSwitcher />
+                        <ThemeSwitcher />
                       </div>
                     </li>
 

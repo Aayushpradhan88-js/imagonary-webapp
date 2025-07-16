@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { CldImage } from 'next-cloudinary';
+import { toast } from 'react-toastify';
 
 //----------SOCIAL MEDIA ASPECT RATIO FORMATS----------//
 const socialFormats = {
@@ -63,12 +64,17 @@ function SocialShare() {
         method: "POST",
         body: formData,
       });
-
-      if (!response.ok) throw new Error("Failed to upload image");
+      
+      
+      if (!response.ok) {
+        throw new Error("Failed to upload image")
+        toast.error('Failed to upload image ')
+      };
 
       const data = await response.json();
       setUploadedImage(data.publicId);
 
+      toast.success('Image fetched successfully')
     }
     catch (error) {
       console.error("Error uploading image:", error);
@@ -102,6 +108,7 @@ function SocialShare() {
         document.body.removeChild(link);
 
       })
+      toast.success('Image downloaded successfully')
   }
 
   return (
@@ -139,7 +146,7 @@ function SocialShare() {
           {/* Upload Progress Bar */}
           {isUploading && ( // Your existing state
             <div className="mt-4">
-              {/* Replaces DaisyUI 'progress progress-primary' */}
+              
               <div className="w-full bg-gray-700 rounded-full h-2.5">
                 <div className="bg-violet-600 h-2.5 rounded-full" style={{ width: '50%' }}></div> {/* Example width, set dynamically */}
               </div>
