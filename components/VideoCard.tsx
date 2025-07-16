@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import dayjs from 'dayjs';
 import { filesize } from 'filesize';
 import { getCldImageUrl, getCldVideoUrl } from 'next-cloudinary';
 import { Download, Clock, FileDown, FileUp, Trash2 } from 'lucide-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs';
 
 import { Video } from '@/types';
 
-dayjs.extend(relativeTime); //-----give relative time 2day, 3hours not exact date-----//
+dayjs.extend(relativeTime); //-----gives relative time 2day, 3hours not exact date-----//
 
 interface VideoCardProps {
     video: Video;
@@ -21,35 +21,41 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
 
     //-----Thumbnail URL-----//
     const getThumbnailUrl = useCallback((publicId: string) => {
-        return getCldImageUrl({
-            src: publicId,
-            width: 400,
-            height: 225,
-            crop: "fill",
-            gravity: "auto",
-            format: "jpg",
-            quality: "auto",
-            assetType: "video"
-        })
+        return getCldImageUrl(
+            {
+                src: publicId,
+                width: 400,
+                height: 225,
+                crop: "fill",
+                gravity: "auto",
+                format: "jpg",
+                quality: "auto",
+                assetType: "video"
+            }
+        )
     }, []);
 
     //----VIDEO URL-----//
     const getFullVideoUrl = useCallback((publicId: string) => {
-        return getCldVideoUrl({
-            src: publicId,
-            width: 400,
-            height: 225,
-        })
+        return getCldVideoUrl(
+            {
+                src: publicId,
+                width: 400,
+                height: 225,
+            }
+        )
     }, []);
 
     //-----VIEEO PREVIEW URL-----//
     const getPreviewVideoUrl = useCallback((publicId: string) => {
-        return getCldVideoUrl({
-            src: publicId,
-            width: 400,
-            height: 225,
-            rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]
-        })
+        return getCldVideoUrl(
+            {
+                src: publicId,
+                width: 400,
+                height: 225,
+                rawTransformations: ["e_preview:duration_15:max_seg_9:min_seg_dur_1"]
+            }
+        )
     }, []);
 
     const handlePreviewError = () => {
@@ -60,10 +66,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
     const formatSize = useCallback((size: number | string | null | undefined) => {
         const numSize = Number(size);
         if (typeof numSize === 'number' && !isNaN(numSize) && numSize > 0) {
-            return filesize(numSize)
-        }
+            return filesize(numSize);
+        };
         return 'N/A'
-    }, [])
+    }, []);
 
     const originalSize = Number(video.originalSize);
     const compressedSize = Number(video.compressedSize);
@@ -99,6 +105,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
                 <figure className="aspect-video relative ">
                     {isHovered ? (
                         previewError ? (
+                            // -----preview error-----//
                             <div className="w-full h-full flex items-center justify-center bg-gray-700">
                                 <p className="text-gray-500">
                                     Preview not available
@@ -122,7 +129,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
                                 alt={video.title}
                                 className="w-full h-full object-cover"
                             />
-                        )}
+                        )};
 
                     {/* //-----DURATION-----// */}
                     <div className="absolute bottom-2 right-2 bg-base-900 bg-opacity-70 px-2 py-1 rounded-lg text-sm flex items-center">
@@ -131,9 +138,11 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, onDownload, onDelete }) =>
                     </div>
                 </figure>
 
-                {/* //-----DESCRIPTION-----// */}
                 <div className="card-body p-4">
-                    <h2 className="card-title text-lg font-bold">{video.title}</h2>
+                    <h2 className="card-title text-lg font-bold">
+                        {video.title}</h2>
+
+                    {/* //-----description-----// */}
                     <p className="text-sm text-base-400 mb-4">
                         {video.description}
                     </p>

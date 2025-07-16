@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
+//----------ROUTES----------//
 const isPublicRoute = createRouteMatcher([
   "/sign-in",
   "/sign-up",
@@ -22,9 +23,10 @@ export default clerkMiddleware(async(auth, req) => {
   if (userId && isPublicRoute(req) && !isAccessingDashboard) {
     return NextResponse.redirect(new URL("/home", req.url))
   }
+
   //----------not logged in-----------//
   if (!userId) {
-    // If user is not logged in and trying to access a protected route
+    //-----If user is not logged in & trying to access a protected route-----//
     if (!isPublicRoute(req) && !isPublicApiRoute(req)) {
       return NextResponse.redirect(new URL("/sign-in", req.url))
     }
@@ -32,14 +34,15 @@ export default clerkMiddleware(async(auth, req) => {
     //-----------If the request is for a protected API and the user is not logged in----------//
     if (isApiRequest && !isPublicApiRoute(req)) {
       return NextResponse.redirect(new URL("/sign-in", req.url))
-    }
-  }
-  return NextResponse.next()
+    };
+  };
 
-})
+  return NextResponse.next();
+
+});
 
 
-//----------MATCHER----------//
+//----------MATCHERS----------//
 export const config = {
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
 };

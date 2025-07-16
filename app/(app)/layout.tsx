@@ -18,6 +18,7 @@ import {
 
 import { Provider } from '../providers';
 import ThemeSwitcher from '@/components/ThemeSwitch';
+import Image from 'next/image';
 
 //--------SIDEBAR LINKS---------//
 const sidebarItems = [
@@ -79,7 +80,9 @@ export default function RootLayout({
 
               {/* //-----LOGO-----// */}
               <div className="flex items-center justify-center py-4 mb-4">
-                <ImageIcon className="w-10 h-10 text-blue-500 dark:text-blue-400" />
+                <Image src="/images/productlogo.png" alt="product logo" width={200} height={50}  /> 
+                {/* <ImageIcon className="w-10 h-10 text-blue-500 dark:text-blue-400" /> */}
+                
               </div>
 
               {/* //-----SIDE-BAR-----// */}
