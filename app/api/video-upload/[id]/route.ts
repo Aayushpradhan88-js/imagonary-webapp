@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v2 as cloudinary } from 'cloudinary';
 import { auth } from '@clerk/nextjs/server';
-import { PrismaClient } from '@prisma/client';
-import Prisma from '@/app/lib/prisma';
+import prisma from '@/app/lib/prisma';
 
-
-const prisma = new PrismaClient();
 
 //----------CLOUDINARY CONFIGURATION----------//
 cloudinary.config({
@@ -13,13 +10,6 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
 });
-
-interface CloudinaryUploadResult {
-    public_id: string;
-    bytes: number;
-    duration?: number;
-    [key: string]: string | number | boolean | object | undefined;
-};
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     try {
@@ -36,7 +26,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
             )
         };
 
-        const videoToDelete = await Prisma.video.findUnique(
+        const videoToDelete = await prisma.video.findUnique(
             {
                 where: { id: videoId },
             }
@@ -52,7 +42,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
             console.error('Cloudinary deletion failed:',)
         };
 
-        await Prisma.video.delete({
+        await prisma.video.delete({
             where: { id: videoId }
         });
 
