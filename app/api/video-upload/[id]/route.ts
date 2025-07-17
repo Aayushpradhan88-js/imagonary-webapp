@@ -13,13 +13,14 @@ cloudinary.config({
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     try {
+        const videoIdFromParams = params.id;
+
         const { userId } = await auth();
         if (!userId) {
             return NextResponse.json({ error: "UNAUTHORIZED USER" });
         };
 
-        const videoId = params.id;
-        if (!videoId) {
+        if (!videoIdFromParams) {
             return NextResponse.json(
                 { error: 'Video ID is required' },
                 { status: 400 }
@@ -28,7 +29,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 
         const videoToDelete = await prisma.video.findUnique(
             {
-                where: { id: videoId },
+                where: { id: videoIdFromParams },
             }
         );
         if (!videoToDelete) {
@@ -43,7 +44,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
         };
 
         await prisma.video.delete({
-            where: { id: videoId }
+            where: { id: videoIdFromParams }
         });
 
         return NextResponse.json(
