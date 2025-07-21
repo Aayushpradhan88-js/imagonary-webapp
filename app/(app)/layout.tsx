@@ -9,15 +9,14 @@ import {
   LayoutDashboardIcon,
   UploadIcon,
   ImageIcon,
-  // Code,
   Share2Icon,
   LogOutIcon,
   HelpCircleIcon,
-  SettingsIcon,
+  // SettingsIcon,
 } from "lucide-react";
 
-import { Provider } from '../providers';
-import ThemeSwitcher from '@/components/ThemeSwitch';
+// import { Provider } from '../providers';
+// import ThemeSwitcher from '@/components/ThemeSwitch';
 import Image from 'next/image';
 
 //--------SIDEBAR LINKS---------//
@@ -74,7 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Provider>
+        {/* <Provider> */}
           <div className="flex h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
             <aside className="hidden lg:flex flex-col bg-gray-200 dark:bg-gray-800 w-64 h-full border-r border-gray-300 dark:border-gray-700 p-4">
 
@@ -109,7 +108,7 @@ export default function RootLayout({
               </ul>
 
               {/* //-----SETTINGS with Theme Toggle Pop-up (Desktop)-----// */}
-              <li ref={settingsButtonRef} className="mb-2 relative">
+              {/* <li ref={settingsButtonRef} className="mb-2 relative">
                 <button
                   onClick={toggleSettingsPopup}
                   className={`flex items-center space-x-3 px-4 py-3 rounded-lg text-lg font-medium w-full text-left
@@ -134,7 +133,7 @@ export default function RootLayout({
                     </ul>
                   </div>
                 )}
-              </li>
+              </li> */}
 
               {/* //-----SIGN OUT-----// */}
               {user && (
@@ -237,17 +236,18 @@ export default function RootLayout({
                     ))}
 
                     {/* Mobile Settings - integrate ThemeSwitcher here as well */}
-                    <li className="mb-2">
+                    {/* <li className="mb-2">
                       <div className="flex items-center space-x-3 px-4 py-3 rounded-lg text-lg font-medium w-full text-left
                                       hover:bg-gray-700 text-gray-300">
                         <SettingsIcon className="w-6 h-6" />
-                        <span>Settings</span> {/* You might want to make this a popup like desktop */}
-                      </div>
+                        <span>Settings</span>  */}
+                        {/* You might want to make this a popup like desktop */}
+                      {/* </div> */}
                       {/* Directly include ThemeSwitcher for mobile if no popup */}
-                      <div className="ml-8 mt-2">
+                      {/* <div className="ml-8 mt-2">
                         <ThemeSwitcher />
                       </div>
-                    </li>
+                    </li> */}
 
 
                     {/* //-----HELP-----// */}
@@ -282,7 +282,7 @@ export default function RootLayout({
               </div>
             </div>
           </div>
-        </Provider>
+        {/* </Provider> */}
       </body>
     </html>
   );

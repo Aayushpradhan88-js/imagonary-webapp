@@ -1,4 +1,3 @@
-// app/home/page.tsx
 "use client"
 
 import React, { useCallback, useEffect, useState } from 'react'
@@ -90,6 +89,7 @@ function Home() {
             }
         }
     }, [videoToDeleteId, handleCloseConfirmModal]);
+    
     //-----LOADING ANIMATION-----//
     if (loading) {
         return (
