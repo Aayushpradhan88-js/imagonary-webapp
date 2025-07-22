@@ -55,7 +55,7 @@ function VideoUpload() {
 
     try {
       //----------UPLOAD VIDEO FETCHING AT BACKEND----------//
-      const response = await axios.post("/api/video-upload", formData);
+      const response = await axios.post("/api/video-upload/upload", formData);
 
       if (response.status === 200) {
         toast.success("Video uploaded successfully");
