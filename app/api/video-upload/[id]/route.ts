@@ -15,7 +15,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     try {
         const videoIdFromParams = params.id;
 
-        const { userId } = await auth();
+        const { userId } = await auth();6
         if (!userId) {
             return NextResponse.json({ error: "UNAUTHORIZED USER" });
         };
