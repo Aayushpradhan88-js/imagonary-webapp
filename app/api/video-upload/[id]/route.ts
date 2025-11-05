@@ -11,11 +11,12 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
 });
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, props: { params: Promise<{ id: string }> }) {
+    const params = await props.params;
     try {
         const videoIdFromParams = params.id;
 
-        const { userId } = await auth();6
+        const { userId } = await auth();
         if (!userId) {
             return NextResponse.json({ error: "UNAUTHORIZED USER" });
         };
@@ -62,5 +63,5 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     }
     finally {
         await prisma.$disconnect();
-    };
+    }
 };

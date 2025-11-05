@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -19,24 +19,28 @@
     "filesize": "^10.1.6",
     "generate": "^0.14.0",
     "lucide-react": "^0.525.0",
-    "next": "^14.2.5",
+    "next": "15.4.5",
     "next-cloudinary": "^6.16.0",
     "next-themes": "^0.4.6",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.2",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
     "eslint": "^8",
-    "eslint-config-next": "14.2.5",
+    "eslint-config-next": "15.4.5",
     "prisma": "^6.10.1",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
+  },
+  "overrides": {
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7"
   }
 }
